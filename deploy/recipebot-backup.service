@@ -1,0 +1,6 @@
+[Unit]
+Description=Recipe log — nightly DB backup
+
+[Service]
+Type=oneshot
+ExecStart=/home/hagai/Code/recipes/scripts/backup.sh

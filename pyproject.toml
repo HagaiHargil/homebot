@@ -1,0 +1,19 @@
+[project]
+name = "recipebot"
+version = "0.1.0"
+description = "Single-user Telegram bot for logging recipes and what got cooked"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "datasette>=0.65.5",
+    "extruct>=0.18.0",
+    "httpx>=0.28.1",
+    "lxml>=6.1.3",
+    "python-dotenv>=1.2.3",
+    "python-telegram-bot[job-queue]>=21,<22",
+    "recipe-scrapers>=15.12.0",
+    "w3lib>=2.4.1",
+]
+
+[tool.uv]
+package = false

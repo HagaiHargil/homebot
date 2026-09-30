@@ -1,0 +1,14 @@
+[Unit]
+Description=Recipe log — datasette (read-only browse)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hagai/Code/recipes
+EnvironmentFile=/home/hagai/Code/recipes/.env
+ExecStart=/bin/sh -c 'exec /home/hagai/Code/recipes/.venv/bin/datasette "$DATA_DIR/recipes.db" -m metadata.yml --host 127.0.0.1 --port 8001'
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

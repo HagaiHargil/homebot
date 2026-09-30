@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import sqlite3;print\\(sqlite3.sqlite_version\\)\")",
+      "Bash(python3 -m venv venv)",
+      "Bash(venv/bin/pip install *)",
+      "Bash(venv/bin/pip list *)",
+      "Read(//home/hagai/.local/bin/**)",
+      "Bash(command -v uv)",
+      "Read(//usr/bin/**)",
+      "Bash(pacman -Q uv)",
+      "Bash(uv --version)",
+      "Bash(sudo -n pacman -S --noconfirm uv)"
+    ]
+  }
+}

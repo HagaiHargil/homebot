@@ -1,0 +1,6 @@
+[Unit]
+Description=Recipe log — weekly Markdown export + git commit
+
+[Service]
+Type=oneshot
+ExecStart=/home/hagai/Code/recipes/scripts/weekly_export.sh

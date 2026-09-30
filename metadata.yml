@@ -1,0 +1,41 @@
+title: Recipe Log
+description: Read-only browse view. All writes go through the Telegram bot.
+databases:
+  recipes:
+    queries:
+      never_cooked:
+        title: Never cooked
+        sql: |-
+          SELECT r.id, r.title, r.url, r.source, r.added_at
+          FROM recipes r
+          WHERE r.archived = 0
+            AND NOT EXISTS (SELECT 1 FROM cooks c WHERE c.recipe_id = r.id)
+          ORDER BY r.added_at
+      top_rated:
+        title: Top rated
+        description: Most 👍 verdicts
+        sql: |-
+          SELECT r.id, r.title, r.url,
+                 sum(c.verdict = 'good') AS good,
+                 count(c.id)             AS cooks,
+                 max(c.cooked_at)        AS last_cooked
+          FROM recipes r JOIN cooks c ON c.recipe_id = r.id
+          WHERE r.archived = 0
+          GROUP BY r.id
+          HAVING good > 0
+          ORDER BY good DESC, last_cooked DESC
+      cooked_this_month:
+        title: Cooked this month
+        sql: |-
+          SELECT c.cooked_at, c.verdict, r.title, c.notes, r.url
+          FROM cooks c JOIN recipes r ON r.id = c.recipe_id
+          WHERE c.cooked_at >= date('now', 'localtime', 'start of month')
+          ORDER BY c.cooked_at DESC, c.id DESC
+      fetch_failures:
+        title: Fetch failures
+        description: Saved with degraded parsing — fix titles from the bot (✏️ on the card)
+        sql: |-
+          SELECT id, title, url, source, fetch_error, added_at
+          FROM recipes
+          WHERE fetch_error IS NOT NULL
+          ORDER BY added_at DESC

@@ -1,0 +1,15 @@
+[Unit]
+Description=Recipe log bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hagai/Code/recipes
+EnvironmentFile=/home/hagai/Code/recipes/.env
+ExecStart=/home/hagai/Code/recipes/.venv/bin/python bot.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
